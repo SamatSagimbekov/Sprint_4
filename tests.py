@@ -12,35 +12,35 @@ class TestBooksCollector:
     def test_set_book_genre(self):
         collector = BooksCollector()
         collector.add_new_book('Book 1')
-        collector.set_book_genre('Book 1', 'Fantasy')
-        assert collector.get_book_genre('Book 1') == 'Fantasy'
+        collector.set_book_genre('Book 1', 'Фантастика')
+        assert collector.get_book_genre('Book 1') == 'Фантастика'
 
     def test_get_book_genre(self):
         collector = BooksCollector()
         collector.add_new_book('Book 1')
-        collector.set_book_genre('Book 1', 'Fantasy')
-        assert collector.get_book_genre('Book 1') == 'Fantasy'
+        collector.set_book_genre('Book 1', 'Фантастика')
+        assert collector.get_book_genre('Book 1') == 'Фантастика'
         assert collector.get_book_genre('Nonexistent Book') is None
 
     def test_get_books_with_specific_genre(self):
         collector = BooksCollector()
         collector.add_new_book('Book 1')
         collector.add_new_book('Book 2')
-        collector.set_book_genre('Book 1', 'Fantasy')
-        collector.set_book_genre('Book 2', 'Fantasy')
-        assert collector.get_books_with_specific_genre('Fantasy') == ['Book 1', 'Book 2']
+        collector.set_book_genre('Book 1', 'Фантастика')
+        collector.set_book_genre('Book 2', 'Фантастика')
+        assert collector.get_books_with_specific_genre('Фантастика') == ['Book 1', 'Book 2']
 
     def test_get_books_genre(self):
         collector = BooksCollector()
         collector.add_new_book('Book 1')
-        collector.set_book_genre('Book 1', 'Fantasy')
-        assert collector.get_books_genre() == {'Book 1': 'Fantasy'}
+        collector.set_book_genre('Book 1', 'Фантастика')
+        assert collector.get_books_genre() == {'Book 1': 'Фантастика'}
 
     def test_get_books_for_children(self):
         collector = BooksCollector()
         collector.add_new_book('Book 1')
         collector.add_new_book('Book 2')
-        collector.set_book_genre('Book 1', 'Fantasy')
+        collector.set_book_genre('Book 1', 'Фантастика')
         collector.set_book_genre('Book 2', 'Horror')
         assert collector.get_books_for_children() == ['Book 1']
 
@@ -77,7 +77,7 @@ class TestBooksCollector:
 
     def test_set_book_genre_for_nonexistent_book(self):
         collector = BooksCollector()
-        collector.set_book_genre('Nonexistent Book', 'Fantasy')
+        collector.set_book_genre('Nonexistent Book', 'Фантастика')
         assert collector.get_books_genre() == {}
 
     def test_add_book_in_favorites_nonexistent_book(self):
@@ -107,3 +107,10 @@ class TestBooksCollector:
         collector.add_new_book('Book 1')
         collector.set_book_genre('Book 1', 'Invalid Genre')
         assert collector.get_book_genre('Book 1') == ''
+
+    def test_set_book_genre_existing_genre(self):
+        collector = BooksCollector()
+        collector.add_new_book('Book 1')
+        collector.set_book_genre('Book 1', 'Фантастика')
+        collector.set_book_genre('Book 1', 'Фантастика')
+        assert collector.get_book_genre('Book 1') == 'Фантастика'
